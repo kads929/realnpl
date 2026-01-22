@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 AUM 달성 로드맵 및 주간 업무 보고</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        @media print {
+            @page {
+                size: A3 portrait; /* A3 세로 방향 설정 */
+                margin: 10mm;
+            }
+            .no-print { display: none !important; }
+            body { padding: 0; background: white; }
+            
+            /* 출력 시 모든 탭을 세로로 나열하여 한 장에 표시 */
+            #summary-tab, #details-tab { 
+                display: block !important; 
+                width: 100% !important;
+                height: auto !important; 
+                padding: 0 !important;
+                margin: 0 0 30px 0 !important; /* 섹션 간 간격 확대 */
+                box-shadow: none !important;
+                page-break-after: avoid !important; 
+                break-after: avoid !important;
+            }
+            .a3-page {
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 5mm !important;
+                border: none !important;
+            }
+            /* 차트 크기 조정 */
+            .chart-container {
+                height: 250px !important;
+            }
+            table {
+                font-size: 13px !important; /* 출력 시 가독성 확보 */
+            }
+        }
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+        .a3-page {
+            width: 420mm; 
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px; /* 기존 11px에서 크게 확대 */
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 700; /* 볼드 강조 */
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            padding: 12px 8px; /* 패딩 증가 */
+        }
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 8px; /* 패딩 증가 */
+            vertical-align: middle;
+            line-height: 1.5;
+        }
+        .header-bg {
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 25px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px; /* 기존 10px에서 확대 */
+            font-weight: bold;
+        }
+        .highlight-box {
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-left: 6px solid #0284c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print flex justify-center p-4 gap-4 bg-white border-b sticky top-0 z-50">
+        <button onclick="switchTab('summary')" class="px-6 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">Summary 시트</button>
+        <button onclick="switchTab('details')" class="px-6 py-2 bg-gray-600 text-white rounded shadow hover:bg-gray-700">상세 현황 시트</button>
+        <div class="border-l mx-2"></div>
+        <button onclick="window.print()" class="px-6 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700 font-bold">PDF 저장 (A3 세로 1장)</button>
+        <button onclick="exportToExcel()" class="px-6 py-2 bg-emerald-700 text-white rounded shadow hover:bg-emerald-800 font-bold">엑셀(.xlsx) 저장</button>
+    </div>
+
+    <div id="summary-tab" class="a3-page">
+        <div class="header-bg flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl font-bold">[주간 업무 보고] 2026년 AUM 5,000억 달성 로드맵 및 주요 추진 현황</h1>
+                <p class="mt-2 text-lg opacity-90">보고일자: 2026년 1월 19일 | 보고자: NPL 투자본부</p>
+            </div>
+            <div class="text-right">
+                <p class="text-3xl font-bold">Target AUM: 5,000억원</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 mb-10">
+            <div class="col-span-2 bg-white border rounded-lg p-8">
+                <h3 class="text-xl font-bold mb-5 border-l-4 border-blue-600 pl-3">1. 2026년 분기별 AUM 목표 및 진척도</h3>
+                <table id="table-aum-summary">
+                    <thead>
+                        <tr>
+                            <th class="text-base">구분</th>
+                            <th class="text-base">1사분기</th>
+                            <th class="text-base">2사분기</th>
+                            <th class="text-base">3사분기</th>
+                            <th class="text-base">4사분기</th>
+                            <th class="bg-blue-50 text-base">2026년 합계</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold bg-gray-50 text-center">목표 AUM (억)</td>
+                            <td class="text-center text-lg">1000</td>
+                            <td class="text-center text-lg">1000</td>
+                            <td class="text-center text-lg">2000</td>
+                            <td class="text-center text-lg">1000</td>
+                            <td class="font-bold bg-blue-50 text-center text-lg text-blue-700">5000</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold bg-gray-50 text-center">현재 실적 (억)</td>
+                            <td class="text-center text-lg">220</td>
+                            <td class="text-center text-lg">0</td>
+                            <td class="text-center text-lg">0</td>
+                            <td class="text-center text-lg">0</td>
+                            <td class="font-bold text-center text-lg">220</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold bg-gray-50 text-center">달성률 (%)</td>
+                            <td class="text-center text-lg">22</td>
+                            <td class="text-center text-lg">0</td>
+                            <td class="text-center text-lg">0</td>
+                            <td class="text-center text-lg">0</td>
+                            <td class="text-red-600 font-bold text-center text-xl">4.4%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-6 chart-container h-72">
+                    <canvas id="aumChart"></canvas>
+                </div>
+            </div>
+            <div class="flex flex-col gap-6">
+                <div class="bg-white border rounded-lg p-8 flex-1">
+                    <h3 class="text-xl font-bold mb-5 border-l-4 border-blue-600 pl-3">차주 중점 추진 계획</h3>
+                    <div class="space-y-5">
+                        <div class="p-4 bg-blue-50 border-l-4 border-blue-400">
+                            <p class="font-bold text-blue-800 text-base mb-1">핵심 프로젝트</p>
+                            <p class="text-base text-gray-700">송도 센트로드 포스코 채권(49억) 인수 조건 확정 및 승인 절차 진행</p>
+                        </div>
+                        <div class="p-4 bg-red-50 border-l-4 border-red-400">
+                            <p class="font-bold text-red-800 text-base mb-1">리스크 관리</p>
+                            <p class="text-base text-gray-700">김포 풍무 / 가락 M캐슬 LH매각 및 임차권 해결 진행, 보수 공사</p>
+                        </div>
+                        <div class="p-4 bg-green-50 border-l-4 border-green-400">
+                            <p class="font-bold text-green-800 text-base mb-1">금융 네트워킹</p>
+                            <p class="text-base text-gray-700">농자산, 한토신, OK저축, 한투캐피탈/증권 미팅(3Q 대형 물건 소싱)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box rounded-lg p-8 shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-sky-900 flex items-center">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+                        현재 검토 중인 채권 AUM
+                    </h3>
+                    <div class="flex justify-between items-end border-b border-sky-200 pb-3 mb-3">
+                        <span class="text-base text-sky-700 font-medium">TOP 10 합계</span>
+                        <span class="text-lg font-bold text-sky-900">약 3,010 억원</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-sky-200 pb-3 mb-4">
+                        <span class="text-base text-sky-700 font-medium">기타 리스트 합계</span>
+                        <span class="text-lg font-bold text-sky-900">약 1,164.3 억원</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-sky-200 p-4 rounded">
+                        <span class="text-lg font-bold text-sky-800">총 합계</span>
+                        <span class="text-3xl font-black text-blue-900">4,174.3 억원</span>
+                    </div>
+                    <p class="text-xs text-sky-600 mt-3">* TOP10(3010억) 및 기타 투자자산(1164.3억) 단순 합산 금액임</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-bold mb-5 border-l-4 border-blue-600 pl-3">2. 핵심 매입 파이프라인 (Top 10)</h3>
+        <table id="table-pipeline">
+            <thead>
+                <tr>
+                    <th width="4%">순번</th>
+                    <th width="12%">프로젝트/물건명</th>
+                    <th width="8%">담당자</th>
+                    <th width="25%">주요 내용 및 채권 규모</th>
+                    <th width="10%">진행 단계</th>
+                    <th width="41%">금주 추진 사항 및 계획</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="font-bold">송도 센트로드</td>
+                    <td class="text-center">강동석</td>
+                    <td>농협(230억), 포스코(49억) 채권 매입. 써버러스 공동 투자</td>
+                    <td class="text-center font-semibold text-blue-700">계약협의</td>
+                    <td>포스코 RM부서 사전 동의 및 대표이사 승인 대기. 2월 10일 전 완료 목표</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="font-bold">LC타워 (양화로)</td>
+                    <td class="text-center">강동석</td>
+                    <td>상가(영화관). DB보험(1,400억), 중순위(493억) 등 대규모 건</td>
+                    <td class="text-center">신규검토</td>
+                    <td>선순위 100% + 잔여 할인 매입 구조 검토 중. 금융 구조 설계</td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td class="font-bold">용인 통삼 물류센터</td>
+                    <td class="text-center">강동석</td>
+                    <td>대지 2.3만평. 캐피탈랜드(4,300억) 검토 중. 우선주 400억 모집</td>
+                    <td class="text-center">딜소싱</td>
+                    <td>IRR 15% 타겟. 개발 이익 향유형 우선주 투자자 모집 개시</td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td class="font-bold">쌍문동 주상복합</td>
+                    <td class="text-center">강동석</td>
+                    <td>89세대 매입 건. 채권원금 600억 (Asking 450억)</td>
+                    <td class="text-center">가격협상</td>
+                    <td>써버러스 390억 제안 예정. MG새마을 대주 미팅 및 SH 매입확정 확인</td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
+                    <td class="font-bold">안양 석수동</td>
+                    <td class="text-center">강동석</td>
+                    <td>오피스텔 채권 원금 280억~318억 규모</td>
+                    <td class="text-center">현장실사완료</td>
+                    <td>할인 매각 금액 협상 중 (310억 수준 목표)</td>
+                </tr>
+                <tr>
+                    <td class="text-center">6</td>
+                    <td class="font-bold">중랑역 센트로뷰</td>
+                    <td class="text-center">강동석</td>
+                    <td>민간임대(103세대). 농자산 240억 채권</td>
+                    <td class="text-center">협의중</td>
+                    <td>매입금액 225억 협의 완료. 한양 및 하나증권 PF 검토 진행</td>
+                </tr>
+                <tr>
+                    <td class="text-center">7</td>
+                    <td class="font-bold">완도 더코지힐</td>
+                    <td class="text-center">조정식</td>
+                    <td>미군임대 12개호. 매입 13.8억 (매입률 46%)</td>
+                    <td class="text-center">수분양진행</td>
+                    <td>01월 내 7개호 계약 진행. 2월 잔금 입금 예정</td>
+                </tr>
+                <tr>
+                    <td class="text-center">8</td>
+                    <td class="font-bold">애플프라자 홈플러스</td>
+                    <td class="text-center">강동석</td>
+                    <td>분당 구미동. 1.3만평 규모. 2016년 매입가 528억</td>
+                    <td class="text-center">자산분석</td>
+                    <td>코람코 매각 리스트 포함 건. 임대차 구조 및 밸류업 검토</td>
+                </tr>
+                <tr>
+                    <td class="text-center">9</td>
+                    <td class="font-bold">농자산 포트폴리오</td>
+                    <td class="text-center">조정식</td>
+                    <td>평택 생숙 등 160개 채권 (약 1,500억 규모)</td>
+                    <td class="text-center">패키지분석</td>
+                    <td>삼성 P4, P5 공장 수요 기반 임대차 서치 및 포트폴리오 구성</td>
+                </tr>
+                <tr>
+                    <td class="text-center">10</td>
+                    <td class="font-bold">신림 복은빌리지</td>
+                    <td class="text-center">조정식</td>
+                    <td>빌라 10호 매각 및 분양 건 (매입 33.8억원)</td>
+                    <td class="text-center">분양진행중</td>
+                    <td>1호 분양 완료, 3호 가계약. 소송 해결 후 2월 본계약 추진</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="details-tab" class="a3-page hidden">
+        <div class="header-bg">
+            <h1 class="text-4xl font-bold">[상세 현황] EXIT 및 문제 물건 관리 현황</h1>
+            <p class="mt-2 text-lg opacity-90">개별 프로젝트 공정률 및 소송/현안 관리 상세 보고</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 mb-10">
+            <div class="bg-white border rounded-lg p-8">
+                <h3 class="text-xl font-bold mb-5 border-l-4 border-green-600 pl-3">3-1. EXIT 진행 물건 상세</h3>
+                <div class="space-y-8">
+                    <div class="border-b pb-5">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-bold text-xl">전주 호텔 (병원 전환)</span>
+                            <span class="status-badge bg-green-100 text-green-800">정: 조정식 / 부: 강동석</span>
+                        </div>
+                        <ul class="text-base space-y-2 text-gray-700">
+                            <li>• <strong>공사:</strong> 현재 공정률 약 86% (도장 및 내부 마감 중)</li>
+                            <li>• <strong>금융:</strong> 1순위 100억 대출 검토 (수협, 대신저축 등)</li>
+                            <li>• <strong>임대:</strong> 한의사 한방병원 임대계약 완료 (보증금 5억)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-bold text-xl">리버타워 프로젝트</span>
+                            <span class="status-badge bg-green-100 text-green-800">정: 강동석 / 부: 조정식</span>
+                        </div>
+                        <ul class="text-base space-y-2 text-gray-700">
+                            <li>• <strong>현황:</strong> 선순위 220억 채권 매입 완료 (1/2)</li>
+                            <li>• <strong>계획:</strong> 공매 절차 개시 및 REO(데이터센터 등) 계획 수립</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border rounded-lg p-8">
+                <h3 class="text-xl font-bold mb-5 border-l-4 border-red-600 pl-3">3-2. 문제 물건 집중 관리</h3>
+                <div class="space-y-8">
+                    <div class="border-b pb-5">
+                        <div class="flex justify-between mb-3">
+                            <span class="font-bold text-xl text-red-700">김포 풍무 M타워</span>
+                            <span class="status-badge bg-red-100 text-red-800">집중관리</span>
+                        </div>
+                        <p class="text-base text-gray-700">보정PJT 용역으로 임차권 해결 진행중 (2월 까지 목표)</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-3">
+                            <span class="font-bold text-xl text-red-700">가락동 M캐슬</span>
+                            <span class="status-badge bg-red-100 text-red-800">현안대응</span>
+                        </div>
+                        <p class="text-base text-gray-700">LH매입 신청 부결 대응 및 지하층 보수 공사 진행 중</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-bold mb-5 border-l-4 border-blue-600 pl-3">4. 기타 투자자산 및 NPL 소싱 상세 리스트</h3>
+        <table id="table-others-detail">
+            <thead>
+                <tr>
+                    <th>프로젝트명</th>
+                    <th width="10%">담당자</th>
+                    <th width="15%">채권/매입액</th>
+                    <th>현재 상태 및 특이사항</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="font-bold">한토신 협업펀드</td>
+                    <td class="text-center text-base">강동석</td>
+                    <td class="text-right text-base">-</td>
+                    <td>NPL 매입 후 개발 펀드. 한토신-테크메이트-써버러스 사업제안 준비</td>
+                </tr>
+                <tr>
+                    <td>알통스포츠 대출</td>
+                    <td class="text-center text-base">조정식</td>
+                    <td class="text-right text-base">1.5 억</td>
+                    <td>공장 매매 계약 완료. 1.2억 상환 및 잔액 분할 납부 인가 예정</td>
+                </tr>
+                <tr>
+                    <td>연지동 호텔신축</td>
+                    <td class="text-center text-base">조정식</td>
+                    <td class="text-right text-base">69 억</td>
+                    <td>양도계약 진행 중. 낙찰가 대비 원가 우위 확보. 에쿼티 20억 모집</td>
+                </tr>
+                <tr>
+                    <td>메이플힐즈 감천</td>
+                    <td class="text-center text-base">조정식</td>
+                    <td class="text-right text-base">40 억</td>
+                    <td>채권사 협의 진행. 질권 대출 및 에쿼티 투자 23억 구성 완료</td>
+                </tr>
+                <tr>
+                    <td>청라 오토렉스</td>
+                    <td class="text-center text-base">조정식</td>
+                    <td class="text-right text-base">1,050 억</td>
+                    <td>도이치모터스 매수 확약서 확보. 블루산업개발 투자 검토 중</td>
+                </tr>
+                <tr>
+                    <td>안산 농협물류센터</td>
+                    <td class="text-center text-base">강동석</td>
+                    <td class="text-right text-base">-</td>
+                    <td>4만평 규모. 오케이F&I 매각 보류 통보에 따른 후속 대응</td>
+                </tr>
+                <tr>
+                    <td class="font-bold text-red-600">핀즐</td>
+                    <td class="text-center text-base">강동석</td>
+                    <td class="text-right text-base">3.8 억</td>
+                    <td>채무불이행자 등재 및 통장 압류 등 강제집행을 통한 추심 극대화</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            if (tab === 'summary') {
+                document.getElementById('summary-tab').classList.remove('hidden');
+                document.getElementById('details-tab').classList.add('hidden');
+            } else {
+                document.getElementById('summary-tab').classList.add('hidden');
+                document.getElementById('details-tab').classList.remove('hidden');
+            }
+        }
+
+        const ctx = document.getElementById('aumChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['1사분기', '2사분기', '3사분기', '4사분기'],
+                datasets: [{
+                    label: '목표 AUM (억원)',
+                    data: [1000, 1000, 2000, 1000],
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 1
+                }, {
+                    label: '현재 실적 (억원)',
+                    data: [220, 0, 0, 0],
+                    backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                    borderColor: 'rgb(239, 68, 68)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 2000,
+                        ticks: { font: { size: 14 } },
+                        title: { display: true, text: '억원', font: { size: 14, weight: 'bold' } }
+                    },
+                    x: {
+                        ticks: { font: { size: 14, weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    legend: { labels: { font: { size: 14 } }, position: 'bottom' }
+                }
+            }
+        });
+
+        function exportToExcel() {
+            const wb = XLSX.utils.book_new();
+            const summaryTable = document.getElementById('table-aum-summary');
+            const pipelineTable = document.getElementById('table-pipeline');
+            
+            const ws1Data = [
+                ["2026년 AUM 달성 로드맵 및 주간 업무 보고 (Summary)"],
+                ["보고일자: 2026-01-19"],
+                ["보고자: NPL 투자본부"],
+                [],
+                ["검토 중 채권 AUM 합계: 4,174.3억원"],
+                [],
+                ["1. 분기별 AUM 목표 및 진척도"],
+                ...XLSX.utils.sheet_to_json(XLSX.utils.table_to_sheet(summaryTable), {header: 1}),
+                [],
+                ["2. 핵심 매입 파이프라인 (Top 10)"],
+                ...XLSX.utils.sheet_to_json(XLSX.utils.table_to_sheet(pipelineTable), {header: 1})
+            ];
+            const ws1 = XLSX.utils.aoa_to_sheet(ws1Data);
+            const detailTable = document.getElementById('table-others-detail');
+            const ws2Data = [
+                ["프로젝트 상세 현황 및 NPL 소싱 리스트"],
+                [],
+                ...XLSX.utils.sheet_to_json(XLSX.utils.table_to_sheet(detailTable), {header: 1})
+            ];
+            const ws2 = XLSX.utils.aoa_to_sheet(ws2Data);
+            XLSX.utils.book_append_sheet(wb, ws1, "Summary");
+            XLSX.utils.book_append_sheet(wb, ws2, "상세현황");
+            XLSX.writeFile(wb, "2026_AUM_주간보고_최종수정.xlsx");
+        }
+    </script>
+</body>
+</html>

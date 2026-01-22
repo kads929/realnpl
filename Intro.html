@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techmate F&I Company Introduction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-dark: #001a3d;
+            --gold-accent: #c5a059;
+            --gold-light: #e5c68b;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #1a1a1a;
+            background-color: #fcfcfc;
+        }
+        .font-mont { font-family: 'Montserrat', sans-serif; }
+        
+        /* Layout */
+        .page-container {
+            width: 1280px;
+            height: auto;
+            min-height: 900px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Decorative Elements */
+        .bg-grid {
+            background-image: radial-gradient(#001a3d 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.05;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+        }
+        
+        /* Components */
+        .section-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(197, 160, 89, 0.1);
+            color: var(--gold-accent);
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .structure-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .structure-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+            border-color: var(--gold-accent);
+        }
+
+        .revenue-pill {
+            background: #f8fafc;
+            border-left: 4px solid var(--gold-accent);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 py-10">
+
+    <div class="page-container">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 bg-grid pointer-events-none"></div>
+
+        <!-- Header Section -->
+        <header class="relative z-10 bg-[#001a3d] text-white px-16 py-12 flex justify-between items-end border-b-8 border-[#c5a059]">
+            <div>
+                <div class="flex items-center gap-4 mb-3">
+                    <span class="text-4xl font-extrabold tracking-tighter font-mont">TECHMATE F&I</span>
+                    <div class="h-6 w-px bg-white/30"></div>
+                    <span class="text-lg text-gray-300 font-light">NPL Strategic Investment Division</span>
+                </div>
+                <h1 class="text-5xl font-black leading-tight">
+                    Beyond The Lower Assets,<br>
+                    <span class="text-[#c5a059]">Fast and Reliable EXIT.</span>
+                </h1>
+            </div>
+            <div class="text-right">
+                <p class="text-sm text-gray-400 font-mont font-bold mb-1">COMPANY IR PRESENTATION</p>
+                <div class="flex items-center gap-2 justify-end">
+                    <div class="w-2 h-2 rounded-full bg-[#c5a059]"></div>
+                    <span class="text-xs tracking-widest uppercase opacity-70">Confidential</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="relative z-10 px-16 py-12 flex flex-col gap-16">
+            
+            <!-- Top Section: Partnership & Sourcing -->
+            <section class="grid grid-cols-12 gap-12">
+                <!-- Left: Core Strength -->
+                <div class="col-span-7">
+                    <div class="section-tag">CORE COMPETENCY</div>
+                    <h2 class="text-3xl font-bold text-[#001a3d] mb-6">글로벌 자본력과 독보적 소싱 네트워크의 결합</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Cerberus Partnership -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-6 group">
+                            <div class="w-20 h-20 bg-blue-50 rounded-xl flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-handshake-angle text-3xl text-[#001a3d]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-[#001a3d] mb-2 flex items-center gap-2">
+                                    Strategic Partnership with Cerberus
+                                    <span class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded">MOU 체결 완료</span>
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    글로벌 초대형 사모펀드인 <span class="text-[#001a3d] font-bold">Cerberus Capital Management</span>와
+                                    한국 NPL 투자에 대한 전략적 제휴를 통해 대규모 투자 자금의 안정성을 확보하고 글로벌 스탠다드 실사를 제공합니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Sourcing Capability -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-6">
+                            <div class="w-20 h-20 bg-amber-50 rounded-xl flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-magnifying-glass-chart text-3xl text-[#c5a059]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-[#001a3d] mb-2">탁월한 Deal Sourcing 파이프라인</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    테크메이트만의 강력한 영업 노하우를 바탕으로 <span class="text-[#001a3d] font-bold text-lg">전 시중은행, 저축은행, 협력 파트너사</span>들로부터
+                                    우량 NPL 물건을 최우선적으로 확보하는 시장 선점 능력을 증명하고 있습니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Capability (Added Section) -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-6 border-l-4 border-l-[#c5a059]">
+                            <div class="w-20 h-20 bg-gray-50 rounded-xl flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-calculator text-3xl text-[#001a3d]"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-[#001a3d] mb-2">데이터 기반의 현실적 프라이싱 능력</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    자산의 실질 가치를 정확히 꿰뚫어보는 <span class="text-[#001a3d] font-bold">정밀 분석 시스템</span>을 통해 시장 변동성 속에서도 리스크를 최소화합니다. 뛰어난 프라이싱 능력을 바탕으로 최적의 매입가를 산출하여 <span class="text-[#c5a059] font-bold">NPL 프로젝트의 성공률을 극대화</span>하는 실무적 전문성을 보유하고 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Profit Model -->
+                <div class="col-span-5">
+                    <div class="section-tag">REVENUE STREAM</div>
+                    <h2 class="text-3xl font-bold text-[#001a3d] mb-6">수익 구조의 다각화</h2>
+                    
+                    <div class="flex flex-col gap-3">
+                        <div class="revenue-pill group">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-[#001a3d] text-white flex items-center justify-center font-mont font-bold text-xs">01</span>
+                                <span class="font-bold text-gray-800">기본 GP 투자 수익</span>
+                            </div>
+                            <span class="text-xs font-mont font-bold text-gray-400 uppercase tracking-tighter">Capital Gain</span>
+                        </div>
+                        <div class="revenue-pill">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-[#001a3d] text-white flex items-center justify-center font-mont font-bold text-xs">02</span>
+                                <span class="font-bold text-gray-800">딜 소싱 Acquisition Fee</span>
+                            </div>
+                            <span class="text-xs font-mont font-bold text-gray-400 uppercase tracking-tighter">Sourcing</span>
+                        </div>
+                        <div class="revenue-pill">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-[#001a3d] text-white flex items-center justify-center font-mont font-bold text-xs">03</span>
+                                <span class="font-bold text-gray-800">운용 관리 Management Fee</span>
+                            </div>
+                            <span class="text-xs font-mont font-bold text-gray-400 uppercase tracking-tighter">Operation</span>
+                        </div>
+                        <div class="revenue-pill">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-[#001a3d] text-white flex items-center justify-center font-mont font-bold text-xs">04</span>
+                                <span class="font-bold text-gray-800">매각 및 Exit Fee</span>
+                            </div>
+                            <span class="text-xs font-mont font-bold text-gray-400 uppercase tracking-tighter">Disposition</span>
+                        </div>
+                        <div class="revenue-pill bg-[#001a3d] border-l-[#c5a059]">
+                            <div class="flex items-center gap-4">
+                                <span class="w-8 h-8 rounded-full bg-[#c5a059] text-[#001a3d] flex items-center justify-center font-mont font-bold text-xs">05</span>
+                                <span class="font-bold text-white">초과 수익에 대한 Promote Share</span>
+                            </div>
+                            <span class="text-xs font-mont font-bold text-[#c5a059] uppercase tracking-tighter">Incentive</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Section: Structure Flow -->
+            <section>
+                <div class="section-tag">INVESTMENT WORKFLOW</div>
+                <h2 class="text-3xl font-bold text-[#001a3d] mb-10 text-center">End-to-End NPL Business Structure</h2>
+                
+                <div class="relative grid grid-cols-5 gap-6">
+                    <!-- Progress Line -->
+                    <div class="absolute top-1/2 left-0 w-full h-px bg-gray-200 -z-10 hidden lg:block"></div>
+
+                    <!-- Step 1 -->
+                    <div class="structure-card">
+                        <div class="w-12 h-12 gold-gradient rounded-full text-white flex items-center justify-center font-mont font-bold text-xl mb-6 shadow-lg">01</div>
+                        <h4 class="text-lg font-bold text-[#001a3d] mb-4">NPL 소싱</h4>
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-[#c5a059] uppercase">Channels</p>
+                            <ul class="text-[13px] text-gray-600 leading-relaxed list-disc pl-4">
+                                <li>제1,2금융권 은행</li>
+                                <li>금융권 대주단</li>
+                                <li>AMC 및 투자사</li>
+                                <li>기타 금융권 협력 기관</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="structure-card">
+                        <div class="w-12 h-12 gold-gradient rounded-full text-white flex items-center justify-center font-mont font-bold text-xl mb-6 shadow-lg">02</div>
+                        <h4 class="text-lg font-bold text-[#001a3d] mb-4">매입 검토</h4>
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-[#c5a059] uppercase">Due Diligence</p>
+                            <ul class="text-[13px] text-gray-600 leading-relaxed list-disc pl-4">
+                                <li>기초자산 밸류에이션</li>
+                                <li>물리적/법률적 실사</li>
+                                <li>EXIT 시나리오 분석</li>
+                                <li>사업성 정밀 검토</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="structure-card bg-[#001a3d] border-[#001a3d] text-white">
+                        <div class="w-12 h-12 bg-white rounded-full text-[#001a3d] flex items-center justify-center font-mont font-bold text-xl mb-6 shadow-lg">03</div>
+                        <h4 class="text-lg font-bold mb-4">NPL 매입</h4>
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-[#c5a059] uppercase">Acquisition</p>
+                            <ul class="text-[13px] text-gray-200 leading-relaxed list-disc pl-4">
+                                <li>REF (부동산펀드)</li>
+                                <li>JV (합작 투자)</li>
+                                <li>본사 직접 매입 (PI)</li>
+                                <li>자산 유동화 구조화</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="structure-card">
+                        <div class="w-12 h-12 gold-gradient rounded-full text-white flex items-center justify-center font-mont font-bold text-xl mb-6 shadow-lg">04</div>
+                        <h4 class="text-lg font-bold text-[#001a3d] mb-4">관리</h4>
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-[#c5a059] uppercase">Management</p>
+                            <ul class="text-[13px] text-gray-600 leading-relaxed list-disc pl-4">
+                                <li>자산 매니지먼트</li>
+                                <li>유치권 및 권리 해결</li>
+                                <li>명도 및 소송 대응</li>
+                                <li>인허가 및 용도변경</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="structure-card">
+                        <div class="w-12 h-12 gold-gradient rounded-full text-white flex items-center justify-center font-mont font-bold text-xl mb-6 shadow-lg">05</div>
+                        <h4 class="text-lg font-bold text-[#001a3d] mb-4">EXIT</h4>
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-[#c5a059] uppercase">Returns</p>
+                            <ul class="text-[13px] text-gray-600 leading-relaxed list-disc pl-4">
+                                <li>경·공매 통한 배당</li>
+                                <li>정상화 후 재매각</li>
+                                <li>개발 후 분양/매각</li>
+                                <li>임대 수익 자산화</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-50 border-t border-gray-200 px-16 py-8 mt-auto flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-8">
+                <div class="text-sm font-bold text-[#001a3d]">TECHMATE F&I</div>
+                <div class="text-xs text-gray-500 font-medium">부실채권 시장의 패러다임을 바꾸는 전략적 투자 전문가 그룹</div>
+            </div>
+            <div class="text-[10px] text-gray-400 font-mont uppercase tracking-widest">
+                © 2026 Techmate F&I. All Rights Reserved.
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
