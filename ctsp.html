@@ -9,12 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 기본 레이아웃 설정 */
         * { box-sizing: border-box; }
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,7 +32,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        /* 배경 디자인 */
         .background-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -41,10 +39,9 @@
             z-index: 0;
         }
 
-        /* 헤더 스타일 */
         .header {
             background: linear-gradient(to right, #002D54, #1e4b8a);
-            padding: 20px 50px;
+            padding: 18px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -56,14 +53,14 @@
         .title-block h1 {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            font-size: 26px;
+            font-size: 23px;
             color: #ffffff;
             letter-spacing: -0.5px;
         }
 
         .title-block h2 {
             margin: 3px 0 0;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.8);
         }
@@ -72,32 +69,27 @@
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: #fff;
-            padding: 6px 12px;
+            padding: 4px 12px;
             border-radius: 4px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
         }
 
-        /* 컨텐츠 그리드 - 스크롤 가능하게 수정 */
+        /* 컨텐츠 그리드 간격 재조정 */
         .content-grid {
-            padding: 25px 50px;
+            padding: 25px 50px 20px; /* 하단 패딩 감소 */
             display: grid;
-            grid-template-columns: 1fr 1fr 1.2fr;
-            gap: 20px;
+            grid-template-columns: 1fr 1fr 1.15fr;
+            gap: 20px; /* 간격 소폭 축소 */
             flex-grow: 1;
             z-index: 10;
-            overflow-y: auto; /* 내용이 많으면 내부 스크롤 */
+            overflow: hidden;
         }
-
-        /* 스크롤바 디자인 */
-        .content-grid::-webkit-scrollbar { width: 6px; }
-        .content-grid::-webkit-scrollbar-track { background: #f1f1f1; }
-        .content-grid::-webkit-scrollbar-thumb { background: #002D54; border-radius: 10px; }
 
         .column-tile {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 12px; /* 카드 사이 간격 조정 */
         }
 
         .tile-header {
@@ -110,82 +102,80 @@
             color: #002D54;
             border-bottom: 2px solid #002D54;
             padding-bottom: 6px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             flex-shrink: 0;
         }
 
         .tile-header i { color: #D4AF37; }
 
+        /* 카드 압축 및 줄 간격 최적화 */
         .card {
             background: #f8fafc;
-            border-left: 4px solid #002D54;
-            padding: 12px 15px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border-left: 5px solid #002D54;
+            padding: 12px 16px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
         }
 
         .card h3 {
             margin: 0 0 8px;
-            font-size: 13px;
+            font-size: 13.5px;
             color: #002D54;
-            display: flex;
-            justify-content: space-between;
             font-weight: 700;
         }
 
         .card p, .card li {
-            font-size: 12.5px;
-            line-height: 1.5;
+            font-size: 12px;
+            line-height: 1.55; /* 줄 간격 최적화 */
             color: #444;
             margin: 0 0 6px;
         }
 
+        .card p:last-child, .card li:last-child { margin-bottom: 0; }
         ul { padding-left: 18px; margin: 0; }
 
         .highlight-text { font-weight: 700; color: #002D54; }
-        .accent-gold { color: #b08d2b; font-weight: 700; }
 
-        /* Chart Area */
+        /* Chart Area 슬림화 */
         .chart-container {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            padding: 5px 0;
+            padding: 6px 0;
         }
 
-        .donut-chart {
-            width: 70px;
-            height: 70px;
-        }
+        .donut-chart { width: 68px; height: 68px; }
 
-        /* Waterfall 디자인 */
+        /* Waterfall 높이 고정 및 간격 조정 */
         .waterfall-box {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
+            margin-top: 5px;
         }
 
         .waterfall-step {
             background: #fff;
             border: 1px solid #e2e8f0;
-            padding: 6px 10px;
+            padding: 7px 10px;
             border-radius: 4px;
-            font-size: 11px;
+            font-size: 10.5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .step-label { font-weight: bold; color: #002D54; width: 50px;}
-        .step-desc { flex-grow: 1; margin: 0 10px; color: #666; font-size: 10.5px;}
-        .step-rate { background: #002D54; color: #fff; padding: 1px 6px; border-radius: 10px; font-size: 9px;}
+        .step-label { font-weight: bold; color: #002D54; width: 45px;}
+        .step-desc { flex-grow: 1; margin: 0 8px; color: #666; font-size: 10px;}
+        .step-rate { background: #002D54; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 9px;}
 
-        /* 통계 그리드 */
+        /* 통계 그리드 여백 최적화 */
         .stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-top: 6px;
         }
 
         .stat-box {
@@ -197,19 +187,14 @@
         }
 
         .stat-val {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #002D54;
             display: block;
         }
 
-        .stat-label {
-            font-size: 9px;
-            color: #888;
-            text-transform: uppercase;
-        }
+        .stat-label { font-size: 9px; color: #888; }
 
-        /* 푸터 스타일 */
         .footer {
             background: #f8fafc;
             border-top: 1px solid #e2e8f0;
@@ -222,7 +207,6 @@
             z-index: 10;
             flex-shrink: 0;
         }
-
         .footer b { color: #002D54; }
     </style>
 </head>
@@ -231,152 +215,106 @@
 <div class="slide-container">
     <div class="background-overlay"></div>
 
-    <!-- Header Section -->
     <div class="header">
         <div class="title-block">
-            <h1>전략적 파트너십 및 NPL 프레임워크 (Strategic Partnership & NPL Framework)</h1>
-            <h2>Cerberus Capital Management × Techmate Korea × Asset Manager (AMC)</h2>
+            <h1>전략적 파트너십 및 NPL 투자 프레임워크</h1>
+            <h2>Cerberus Capital Management × Techmate Korea Partnership</h2>
         </div>
         <div class="date-badge">CONFIDENTIAL</div>
     </div>
 
-    <!-- Main Grid Content -->
     <div class="content-grid">
-        
-        <!-- Column 1: MOU & Governance -->
         <div class="column-tile">
-            <div class="tile-header"><i class="fa-solid fa-file-contract"></i> 1. 파트너십 MOU 요약 (MOU Summary)</div>
-            
+            <div class="tile-header"><i class="fa-solid fa-file-contract"></i> 1. 파트너십 MOU 요약</div>
             <div class="card">
                 <h3>협력 목적 (Objective)</h3>
-                <p>한국 내 NPL(부실채권) 시장의 기회 포착 및 효율적인 자산 유동화/엑시트 체계 구축을 위한 전략적 동맹.</p>
+                <p>한국 내 NPL 시장 기회 포착 및 효율적인 자산 유동화/엑시트 체계 구축을 위한 전략적 동맹 관계.</p>
             </div>
-
             <div class="card">
-                <h3>주요 역할 (Roles & Responsibilities)</h3>
+                <h3>주요 역할 (Responsibilities)</h3>
                 <ul>
-                    <li><span class="highlight-text">Cerberus:</span> 자금 조달 및 투자 결정 주도</li>
-                    <li><span class="highlight-text">Techmate:</span> NPL 소싱 및 AM 서비스 지원</li>
-                    <li><span class="highlight-text">AMC (자산운용사):</span> 자산 관리 및 행정 대행</li>
+                    <li><span class="highlight-text">Cerberus:</span> 자금 조달 및 투자 가이드라인 수립</li>
+                    <li><span class="highlight-text">Techmate:</span> 우량 NPL 소싱 및 정밀 실사 수행</li>
+                    <li><span class="highlight-text">AMC:</span> 자산 관리 및 펀드 행정 서비스 제공</li>
                 </ul>
             </div>
-
             <div class="card">
-                <h3>주요 협약 내용 (Key agreement contents)</h3>
-                <p>JV 설립을 통한 효율적 의사결정:</p>
+                <h3>주요 협약 내용</h3>
+                <p>JV 설립을 통한 효율적 의사결정 체계:</p>
                 <ul>
-                    <li>협력 범위: 부동산 담보부 NPL 자산의 인수 및 서비스 제공, 기타 상호 합의된 공동 협력 분야</li>
-                    <li>운영 원칙: 각 사의 인력, 정보, 자본 및 전문 지식을 공유하여 파트너십의 공동 목표 달성</li>
-                    <li>효력 및 기간: 체결일로부터 3년 간 유효 (뉴욕주 법률 준거)</li>
+                    <li>부동산 담보부 NPL 자산 인수 및 매각 서비스</li>
+                    <li>상호 전문 지식 공유 및 파트너십 목표 달성</li>
+                    <li>체결일로부터 3년 간 유효 (뉴욕주 법 준거)</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Column 2: Term Sheet Commercials -->
         <div class="column-tile">
-            <div class="tile-header"><i class="fa-solid fa-chart-line"></i> 2. 주요 조건 요약 (Commercial Term Sheet)</div>
-            
+            <div class="tile-header"><i class="fa-solid fa-chart-line"></i> 2. Commercial Term Sheet</div>
             <div class="card">
                 <h3>에쿼티 투자 비율 (Equity Ratio)</h3>
                 <div class="chart-container">
                     <svg class="donut-chart" viewBox="0 0 36 36">
                         <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#D4AF37" stroke-width="3" stroke-dasharray="5, 100"></path>
                         <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#002D54" stroke-width="3" stroke-dasharray="95, 100"></path>
-                        <text x="18" y="21" text-anchor="middle" font-size="7" font-weight="bold" fill="#002D54" font-family="Poppins">95:5</text>
+                        <text x="18" y="21" text-anchor="middle" font-size="7" font-weight="bold" fill="#002D54">95:5</text>
                     </svg>
-                    <div style="font-size: 11px;">
-                        <div style="display:flex; align-items:center; gap:5px;"><span style="width:8px; height:8px; background:#002D54; display:inline-block;"></span> Cerberus (95%)</div>
-                        <div style="display:flex; align-items:center; gap:5px; margin-top:2px;"><span style="width:8px; height:8px; background:#D4AF37; display:inline-block;"></span> Techmate (5%)</div>
+                    <div style="font-size: 10.5px;">
+                        <div><span style="width:8px; height:8px; background:#002D54; display:inline-block; border-radius:2px;"></span> Cerberus (95%)</div>
+                        <div style="margin-top:3px;"><span style="width:8px; height:8px; background:#D4AF37; display:inline-block; border-radius:2px;"></span> Techmate (5%)</div>
                     </div>
                 </div>
             </div>
-
             <div class="card">
                 <h3>수수료 구조 (Fee Structure)</h3>
-                <p>• <span class="highlight-text">매입(Acusition) Fee:</span> 각 1.0% (NPL 원금 기준)</p>
-                <p>• <span class="highlight-text">관리(Management) Fee:</span> 연 0.3% (Min. 3억 원)</p>
-                <p>• <span class="highlight-text">처분(EXIT) Fee:</span> 각 1.0~2.5% (매각 금액 기준)</p>
+                <p>• <span class="highlight-text">매입 Fee:</span> 1.0% (NPL 원금 기준)</p>
+                <p>• <span class="highlight-text">관리 Fee:</span> 연 0.3% (Min. 3억 원)</p>
+                <p>• <span class="highlight-text">처분 Fee:</span> 1.0~2.5% (최종 매각가 기준)</p>
             </div>
-
             <div class="card">
-                <h3>수익 배분 (Distribution Waterfall)</h3>
+                <h3>수익 배분 (Waterfall)</h3>
                 <div class="waterfall-box">
-                    <div class="waterfall-step">
-                        <span class="step-label">Tier 1</span>
-                        <span class="step-desc">원금 및 주주 대출 우선 상환</span>
-                        <span class="step-rate">100%</span>
-                    </div>
-                    <div class="waterfall-step">
-                        <span class="step-label">Tier 2</span>
-                        <span class="step-desc">우선 수익 (IRR 15% 기준)</span>
-                        <span class="step-rate">100%</span>
-                    </div>
-                    <div class="waterfall-step" style="background:#fff9e6; border-color:#D4AF37;">
-                        <span class="step-label">Tier 3</span>
-                        <span class="step-desc">성과 수익 (IRR 15~20%)</span>
-                        <span class="step-rate">15%</span>
-                    </div>
-                    <div class="waterfall-step" style="background:#fff9e6; border-color:#D4AF37;">
-                        <span class="step-label">Tier 4</span>
-                        <span class="step-desc">성공 보수 (IRR 20% 초과)</span>
-                        <span class="step-rate">20%</span>
-                    </div>
+                    <div class="waterfall-step"><span class="step-label">Tier 1</span><span class="step-desc">원금 및 주주 대출 우선 상환</span><span class="step-rate">100%</span></div>
+                    <div class="waterfall-step"><span class="step-label">Tier 2</span><span class="step-desc">우선 수익 (IRR 15% 기준)</span><span class="step-rate">100%</span></div>
+                    <div class="waterfall-step" style="background:#fff9e6; border-color:#D4AF37;"><span class="step-label">Tier 3</span><span class="step-desc">성과 수익 (IRR 15~20%)</span><span class="step-rate">15%</span></div>
+                    <div class="waterfall-step" style="background:#fff9e6; border-color:#D4AF37;"><span class="step-label">Tier 4</span><span class="step-desc">성공 보수 (IRR 20% 초과)</span><span class="step-rate">20%</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- Column 3: Cerberus Firm Introduction -->
         <div class="column-tile">
-            <div class="tile-header"><i class="fa-solid fa-earth-americas"></i> 3. 기업 소개 (Cerberus Capital Management)</div>
-            
-            <div class="card" style="background: #fff; border: 1px solid #ddd; border-left: 5px solid #D4AF37;">
-                <h3>글로벌 대체투자 리더 (Global Leader)</h3>
-                <p>1992년 설립, 독보적인 오퍼레이션 역량을 보유한 세계 최대 규모의 투자사 중 하나.</p>
+            <div class="tile-header"><i class="fa-solid fa-earth-americas"></i> 3. Cerberus Capital Management</div>
+            <div class="card" style="border-left: 5px solid #D4AF37;">
+                <h3>글로벌 대체투자 리더</h3>
+                <p>1992년 설립, 전 세계 31개 거점을 보유한 글로벌 최대 규모의 대체투자 전문 운용사.</p>
                 <div class="stat-grid">
-                    <div class="stat-box">
-                        <span class="stat-val">~$65B</span>
-                        <span class="stat-label">Total AUM</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">1,000+</span>
-                        <span class="stat-label">Professional</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">31</span>
-                        <span class="stat-label">Global Office</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-val">33yrs</span>
-                        <span class="stat-label">Track Record</span>
-                    </div>
+                    <div class="stat-box"><span class="stat-val">~$65B</span><span class="stat-label">AUM</span></div>
+                    <div class="stat-box"><span class="stat-val">1,000+</span><span class="stat-label">Experts</span></div>
+                    <div class="stat-box"><span class="stat-val">31</span><span class="stat-label">Offices</span></div>
+                    <div class="stat-box"><span class="stat-val">33yrs</span><span class="stat-label">Track</span></div>
                 </div>
             </div>
-
             <div class="card">
-                <h3>부동산 및 NPL 강점 (RE & NPL Edge)</h3>
+                <h3>부동산 및 NPL 강점</h3>
                 <ul>
-                    <p>Cerberus는 30년 이상의 업력을 보유한 글로벌 대체투자 리더로서, 전 세계 31개 거점을 통해 유연한 투자 접근 방식과 강력한 운영 역량을 제공합니다.</p>
-                    <li><span class="highlight-text">RE AUM:</span> <span class="accent-gold">$17 Billion</span> 규모</li>
-                    <li><span class="highlight-text">NPL Leader:</span> 글로벌 최대 NPL 매수자</li>
-                    <li><span class="highlight-text">Track Record:</span> NPL 누적 <span class="highlight-text">$29.3Bn</span> 투자</li>
+                    <li><span class="highlight-text">RE AUM:</span> $17 Billion 규모 운용</li>
+                    <li><span class="highlight-text">NPL Leader:</span> 글로벌 최대 NPL 매수 실적</li>
+                    <li><span class="highlight-text">History:</span> NPL 누적 $29.3Bn 투자 달성</li>
                 </ul>
             </div>
-
             <div class="card">
-                <h3>자체 운영 플랫폼 (Operating Platform)</h3>
-                <p>전문 조직(COAC) 및 FirstKey 등을 통해 자산 가치를 능동적(Active)으로 관리. 특히 COAC, CTS, CES와 같은 자체 운영 플랫폼을 통해 자산의 생애주기 전반에 걸쳐 차별화된 가치를 창출합니다.</p>
-                <p style="font-size:11px; font-style:italic; color:#888;">* 2,100여 명의 서비스 인프라 보유</p>
+                <h3>자체 운영 플랫폼 (Operating)</h3>
+                <p>COAC, CTS 등 독자적인 운영 플랫폼을 통해 자산 전 주기에 걸쳐 능동적인 가치 창출을 수행합니다.</p>
+                <p style="font-size:10px; color:#888;">* 2,100여 명의 글로벌 실무 인프라 구축</p>
             </div>
         </div>
-
     </div>
 
-    <!-- Footer Section -->
     <div class="footer">
-        <div>CERBERUS CAPITAL MANAGEMENT, L.P. | <b>비공개 업무용 자료 (CONFIDENTIAL)</b></div>
+        <div>CERBERUS CAPITAL MANAGEMENT, L.P. | <b>CONFIDENTIAL</b></div>
         <div>Trade Secret & Proprietary &copy; 2025 Cerberus. All Rights Reserved.</div>
     </div>
 </div>
 
 </body>
-</html>ㅁ
+</html>
