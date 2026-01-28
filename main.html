@@ -17,14 +17,14 @@
             body { padding: 0; background: white; }
             
             /* 출력 시 모든 탭을 세로로 나열하여 한 장에 표시 */
-            #summary-tab, #details-tab { 
-                display: block !important; 
+            #summary-tab, #details-tab {
+                display: block !important;
                 width: 100% !important;
-                height: auto !important; 
+                height: auto !important;
                 padding: 0 !important;
                 margin: 0 0 30px 0 !important; /* 섹션 간 간격 확대 */
                 box-shadow: none !important;
-                page-break-after: avoid !important; 
+                page-break-after: avoid !important;
                 break-after: avoid !important;
             }
             .a3-page {
@@ -46,7 +46,7 @@
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         }
         .a3-page {
-            width: 420mm; 
+            width: 420mm;
             min-height: 297mm;
             padding: 20mm;
             margin: 20px auto;
@@ -89,6 +89,14 @@
             background-color: #f0f9ff;
             border: 1px solid #bae6fd;
             border-left: 6px solid #0284c7;
+        }
+        /* Cerberus Logo Style */
+        .cerberus-logo {
+            height: 14px;
+            vertical-align: middle;
+            margin-left: 6px;
+            display: inline-block;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -156,14 +164,35 @@
                 <div class="mt-6 chart-container h-72">
                     <canvas id="aumChart"></canvas>
                 </div>
+
+                <!-- [신규 요청] 금주 신규 검토건 추가 -->
+                <div class="mt-8 border-t-2 border-dashed border-gray-200 pt-6">
+                    <h3 class="text-xl font-bold mb-4 border-l-4 border-indigo-600 pl-3 text-indigo-900">금주 신규 검토건</h3>
+                    <ul class="space-y-4 text-base text-gray-800">
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 w-2 h-2 mt-2 bg-indigo-500 rounded-full mr-3"></span>
+                            <span><strong>오케이저축은행 협의:</strong> 정길호 행장 미팅 후 저축은행 담당자(기업여신관리부 강재복 부장, 최영진 팀장)와 매입가능 NPL물건 협의 진행 예정</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 w-2 h-2 mt-2 bg-indigo-500 rounded-full mr-3"></span>
+                            <span><strong>용인 통삼 물류센터 PF:</strong> 한투캐피탈/한국토지신탁 등과 PF조달(4,700억원) 협의 진행 중. 케이클라비스와 PF조달 컨설팅 계약(테크로) 체결 예정</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 w-2 h-2 mt-2 bg-indigo-500 rounded-full mr-3"></span>
+                            <span><strong>저축은행중앙회 협의:</strong> 오화경 저축은행중앙회장 미팅 예정 - SB NPL대부(자본금 105억, 신설) 자금조달 협의건</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
             <div class="flex flex-col gap-6">
                 <div class="bg-white border rounded-lg p-8 flex-1">
                     <h3 class="text-xl font-bold mb-5 border-l-4 border-blue-600 pl-3">차주 중점 추진 계획</h3>
                     <div class="space-y-5">
                         <div class="p-4 bg-blue-50 border-l-4 border-blue-400">
                             <p class="font-bold text-blue-800 text-base mb-1">핵심 프로젝트</p>
-                            <p class="text-base text-gray-700">송도 센트로드 포스코 채권(49억) 인수 조건 확정 및 승인 절차 진행</p>
+                            <!-- [신규 요청] Cerberus 로고 추가 -->
+                            <p class="text-base text-gray-700">송도 센트로드 포스코 채권(49억) 인수 조건 확정 및 승인 절차 진행 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cerberus_Capital_Management_logo.svg/2560px-Cerberus_Capital_Management_logo.svg.png" alt="Cerberus" class="cerberus-logo"></p>
                         </div>
                         <div class="p-4 bg-red-50 border-l-4 border-red-400">
                             <p class="font-bold text-red-800 text-base mb-1">리스크 관리</p>
@@ -212,7 +241,8 @@
             <tbody>
                 <tr>
                     <td class="text-center">1</td>
-                    <td class="font-bold">송도 센트로드</td>
+                    <!-- [신규 요청] Cerberus 로고 추가 -->
+                    <td class="font-bold">송도 센트로드 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cerberus_Capital_Management_logo.svg/2560px-Cerberus_Capital_Management_logo.svg.png" alt="Cerberus" class="cerberus-logo"></td>
                     <td class="text-center">강동석</td>
                     <td>농협(230억), 포스코(49억) 채권 매입. 써버러스 공동 투자</td>
                     <td class="text-center font-semibold text-blue-700">계약협의</td>
@@ -244,7 +274,8 @@
                 </tr>
                 <tr>
                     <td class="text-center">5</td>
-                    <td class="font-bold">안양 석수동</td>
+                    <!-- [신규 요청] Cerberus 로고 추가 -->
+                    <td class="font-bold">안양 석수동 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cerberus_Capital_Management_logo.svg/2560px-Cerberus_Capital_Management_logo.svg.png" alt="Cerberus" class="cerberus-logo"></td>
                     <td class="text-center">강동석</td>
                     <td>오피스텔 채권 원금 280억~318억 규모</td>
                     <td class="text-center">현장실사완료</td>
@@ -252,7 +283,8 @@
                 </tr>
                 <tr>
                     <td class="text-center">6</td>
-                    <td class="font-bold">중랑역 센트로뷰</td>
+                    <!-- [신규 요청] Cerberus 로고 추가 -->
+                    <td class="font-bold">중랑역 센트로뷰 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cerberus_Capital_Management_logo.svg/2560px-Cerberus_Capital_Management_logo.svg.png" alt="Cerberus" class="cerberus-logo"></td>
                     <td class="text-center">강동석</td>
                     <td>민간임대(103세대). 농자산 240억 채권</td>
                     <td class="text-center">협의중</td>
@@ -276,7 +308,8 @@
                 </tr>
                 <tr>
                     <td class="text-center">9</td>
-                    <td class="font-bold">농자산 포트폴리오</td>
+                    <!-- [신규 요청] Cerberus 로고 추가 -->
+                    <td class="font-bold">농자산 포트폴리오 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cerberus_Capital_Management_logo.svg/2560px-Cerberus_Capital_Management_logo.svg.png" alt="Cerberus" class="cerberus-logo"></td>
                     <td class="text-center">조정식</td>
                     <td>평택 생숙 등 160개 채권 (약 1,500억 규모)</td>
                     <td class="text-center">패키지분석</td>
@@ -361,7 +394,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="font-bold">한토신 협업펀드</td>
+                    <!-- [신규 요청] Cerberus 로고 추가 -->
+                    <td class="font-bold">한토신 협업펀드 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cerberus_Capital_Management_logo.svg/2560px-Cerberus_Capital_Management_logo.svg.png" alt="Cerberus" class="cerberus-logo"></td>
                     <td class="text-center text-base">강동석</td>
                     <td class="text-right text-base">-</td>
                     <td>NPL 매입 후 개발 펀드. 한토신-테크메이트-써버러스 사업제안 준비</td>
